@@ -23,3 +23,5 @@ constellation = st.selectbox(
         "うお座（魚座、Pisces）",
     ),
 )
+
+st.button("SELECT")
