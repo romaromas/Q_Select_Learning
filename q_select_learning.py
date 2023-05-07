@@ -29,6 +29,7 @@ constellation = st.selectbox(
 )
 
 num_reads = st.number_input("反復回数", min_value=1, max_value=1000)
+
 if st.button("SELECT"):
     # 観測点の座標。要素数はNparaと合わせる
     s = [0, 0, 0]  # 観測点の座標　TODO:観測点の座標をユーザーの入力から計算する
@@ -48,7 +49,7 @@ if st.button("SELECT"):
     dist_mat, dist = fc.make_dist_mat(mat)
     QUBO = fc.create_penalty(N, K)
 
-    result = fc.sample(QUBO, 100)
+    result = fc.sample(QUBO, num_reads)
 
     dist_df = pd.DataFrame({"距離": dist})
     st.write(dist_df)
