@@ -1,6 +1,10 @@
 import streamlit as st
+import pandas as pd
+from plascript import functions as fc
 
 st.title("Q Select Learning")
+st.caption("反復回数以外は使用されていません")
+
 
 budget = st.slider("予算を教えてください", 0, 100000, 2000, step=1000)
 budget = st.slider("かけられる時間を教えてください[時間]", 10, 10000, 100, step=10)
@@ -24,4 +28,35 @@ constellation = st.selectbox(
     ),
 )
 
-st.button("SELECT")
+num_reads = st.number_input("反復回数", min_value=1, max_value=1000)
+if st.button("SELECT"):
+    # 観測点の座標。要素数はNparaと合わせる
+    s = [0, 0, 0]  # 観測点の座標　TODO:観測点の座標をユーザーの入力から計算する
+
+    Nmater = 10  # 教材の数　TODO:スプレッドシートから計算する
+    # 罰則項の作成
+    N = Nmater
+    # 選択する教材数
+    K = 3
+
+    # サンプル教材作成
+    # TODO:スプレッドシートから読み込む
+    coursewares = fc.make_sample()
+    # パラメータ配列作成
+    mat = fc.courseware2matrix(coursewares)
+
+    dist_mat, dist = fc.make_dist_mat(mat)
+    QUBO = fc.create_penalty(N, K)
+
+    result = fc.sample(QUBO, 100)
+
+    dist_df = pd.DataFrame({"距離": dist})
+    st.write(dist_df)
+
+    selected = []
+    for key, value in result.items():
+        if value == 1:
+            selected.append(key)
+    print(selected)
+
+    st.write(selected)
