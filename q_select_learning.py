@@ -7,10 +7,8 @@ from plascript import functions as pfc
 
 
 st.title("Q Select Learning")
-st.caption("反復回数以外は使用されていません")
 
-
-K = st.slider("選択したい教材数", 1, 5, step=1)
+K = st.slider("選択したい教材数", 1, 5, 3, step=1)
 # budget = st.slider("予算を教えてください", 0, 100000, 2000, step=1000)
 # budget = st.slider("かけられる時間を教えてください[時間]", 10, 10000, 100, step=10)
 blood_type = st.selectbox("血液型を教えてください", ("A", "B", "AB", "O"))
@@ -40,7 +38,7 @@ df_courseware = rfc.get_courseware()
 
 if st.button("SELECT"):
     # 観測点の座標。要素数はNparaと合わせる
-    # s = [0, 0, 0]  # 観測点の座標　TODO:観測点の座標をユーザーの入力から計算する
+    # s = [0, 0, 0]  # 観測点の座標
     s = rfc.gen_vec(blood_type, toeic_level, constellation)  # 観測点の座標を計算
 
     Nmater = len(df_courseware)  # 教材の数
