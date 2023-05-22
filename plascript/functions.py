@@ -42,7 +42,7 @@ def courseware2matrix(coursewares: dict) -> np.ndarray:
     return mat
 
 
-def make_dist_mat(mat):
+def make_dist_mat(mat, s):
     """教材パラメータから対角行列をつくる
 
     Args:

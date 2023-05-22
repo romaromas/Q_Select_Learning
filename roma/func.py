@@ -3,6 +3,8 @@ from os.path import join, dirname
 from dotenv import load_dotenv
 import pandas as pd
 
+datarow = 79
+
 
 def get_courseware() -> pd.DataFrame:
     """google spred sheetから教材表を読み込む
@@ -13,6 +15,7 @@ def get_courseware() -> pd.DataFrame:
     Return:
         df(pd.DataFrame):教材の表
     """
+
     # dotenv_path = r"D:\insiders\Q_Select_Learning\.env"
     dotenv_path = join(dirname(__file__), "../.env")
 
@@ -43,5 +46,25 @@ def get_courseware() -> pd.DataFrame:
     df = pd.DataFrame(
         spreadsheet.sheet1.get_all_values()[1:],
         columns=spreadsheet.sheet1.get_all_values()[0],
-    )
+    ).iloc[:datarow, :14]
     return df
+
+
+def gen_vec(blood_type: str, toeic_level: str, constellation: str):
+    bt = {"A": 0, "B": 1, "AB": 2, "O": 3}
+    const = {
+        "おひつじ座（牡羊座、Aries）": 0,
+        "おうし座（牡牛座、Taurus）": 1,
+        "ふたご座（双子座、Gemini）": 2,
+        "かに座（蟹座、Cancer）": 3,
+        "しし座（獅子座、Leo）": 4,
+        "おとめ座（乙女座、Virgo）": 5,
+        "てんびん座（天秤座、Libra）": 6,
+        "さそり座（蠍座、Scorpius）": 7,
+        "いて座（射手座、Sagittarius）": 8,
+        "やぎ座（山羊座、Capricornus）": 9,
+        "みずがめ座（水瓶座、Aquarius）": 10,
+        "うお座（魚座、Pisces）": 11,
+    }
+    level = int(toeic_level)
+    return [bt[blood_type] / 3, level / 6, const[constellation] / 11]
