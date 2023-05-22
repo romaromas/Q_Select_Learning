@@ -1,7 +1,10 @@
 import streamlit as st
 import pandas as pd
+from google.oauth2 import service_account
+import gspread
 from roma import func as rfc
 from plascript import functions as pfc
+
 
 st.title("Q Select Learning")
 st.caption("反復回数以外は使用されていません")
