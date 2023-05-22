@@ -1,5 +1,7 @@
 .venv
 .vscode
 .env
+.streamlit
+*.ipynb
 __pycache__
 key
