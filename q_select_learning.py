@@ -48,18 +48,22 @@ if st.button("SELECT"):
     # 選択する教材数
     # K = 3
 
-    # サンプル教材作成
-    # TODO:スプレッドシートから読み込む
-    coursewares = pfc.make_sample()
-    # パラメータ配列作成
-    mat = pfc.courseware2matrix(coursewares)
+    Npara = 3  # 特徴量空間のパラメータ数（特徴量の数）
 
-    dist_mat, dist = pfc.make_dist_mat(mat, s)
+    # 教材のパラメータからベクトルに生成（正規化してるだけ）
+    coursewares_vec = rfc.gen_cwvec(df_courseware)
+
+    # パラメータ配列作成
+    mat = rfc.courseware2matrix(coursewares_vec, Npara)
+
+    dist_mat, dist = rfc.make_dist_mat(mat, s, Nmater)
     QUBO = pfc.create_penalty(N, K)
 
     result = pfc.sample(QUBO, num_reads)
 
     dist_df = pd.DataFrame({"距離": dist})
+    dist_df["name"] = df_courseware["name"]
+    dist_df = dist_df.reindex(columns=["name", "距離"])
     st.write(dist_df)
 
     selected = []

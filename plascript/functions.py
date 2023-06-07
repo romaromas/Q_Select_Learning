@@ -4,10 +4,10 @@ from openjij import SQASampler
 
 
 # 観測点の座標。要素数はNparaと合わせる
-s = [0, 0, 0]  # 観測点の座標
-mu, sigma = 0, 1
-Npara = 3  # 特徴量空間のパラメータ数（特徴量の数）
-Nmater = 10  # 教材の数
+# s = [0, 0, 0]  # 観測点の座標
+# mu, sigma = 0, 1
+# Npara = 3  # 特徴量空間のパラメータ数（特徴量の数）
+# Nmater = 10  # 教材の数
 
 
 # ランダム教材作成
