@@ -7,6 +7,7 @@ from plascript import functions as pfc
 
 
 st.title("Q Select Learning")
+st.subheader("あなたのための教材を提案")
 
 K = st.slider("選択したい教材数", 1, 5, 3, step=1)
 # budget = st.slider("予算を教えてください", 0, 100000, 2000, step=1000)
